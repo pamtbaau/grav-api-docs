@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../grav/site-learn/user"
+		},
+		{
+			"path": "../grav/site-learn/system/src/Grav"
+		}
+	],
+	"settings": {}
+}

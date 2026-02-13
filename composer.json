@@ -1,0 +1,58 @@
+{
+  "name": "saggre/phpdocumentor-markdown",
+  "description": "Markdown template for phpDocumentor3",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Saggre",
+      "email": "sakri.koskimies@hotmail.com"
+    }
+  ],
+  "keywords": [
+    "phpdocumentor",
+    "phpdoc",
+    "markdown",
+    "ci",
+    "ai",
+    "documentation"
+  ],
+  "require": {
+  },
+  "require-dev": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "cweagans/composer-patches": "^1.7",
+    "phpdocumentor/phpdocumentor": "3.8.0",
+    "phpunit/phpunit": "^10",
+    "symfony/filesystem": "^6.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpDocumentorMarkdown\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhpDocumentorMarkdown\\Test\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "create-docs": "phpdoc",
+    "create-docs:debug": "phpdoc -vvv"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "cweagans/composer-patches": true
+    }
+  },
+  "extra": {
+    "patches": {
+      "phpdocumentor/phpdocumentor": [
+        "./patches/phpdocumentor-resource-path.patch"
+      ]
+    }
+  }
+}

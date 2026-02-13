@@ -1,0 +1,22 @@
+# PhpDocumentor
+.phpdoc/
+phpdoc.xml
+ast.dump
+var/
+.tests
+
+# PHPUnit
+phpunit.xml
+.phpunit*
+
+# IDE
+.idea
+
+# Composer
+/vendor/
+
+# Misc
+tmp/
+
+.wiki/
+phpdoc

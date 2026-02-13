@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+        configVersion="3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://www.phpdoc.org"
+>
+    <title>GRAV API</title>
+    <paths>
+        <output>/www/grav/site-learn/user/pages/17/14.api</output>
+    </paths>
+    <version number="latest">
+        <api>
+            <source dsn="/www/grav/site-learn/system/src/Grav">
+                <path>.</path>
+            </source>
+        </api>
+    </version>
+    <template name="markdown" location="./themes">
+        <!-- Print GitLab or GitHub compatible Markdown. Options: github|gitlab -->
+        <parameter name="markdownFlavour" value="github"/>
+        <!-- Add ".md" to links. Options: yes|no -->
+        <parameter name="urlFileExtensions" value="no"/>
+        <!-- Include H1 level title in Markdown. Options: yes|no -->
+        <parameter name="includeTitle" value="yes"/>
+        <!-- Include a footer with timestamp. Options: yes|no -->
+        <parameter name="includeFooter" value="no"/>
+    </template>
+</phpdocumentor>

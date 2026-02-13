@@ -1,0 +1,14 @@
+{#
+ # Create "id" of class for anchor to link table of contents to class
+ #}
+{% macro anchorId(class) -%}
+    {{- class | replace({'\\': ''}) | lower -}}
+{%- endmacro %}
+
+{#
+ # Escape markdown special charactersc
+ # @param $text string The text to escape
+ #}
+{% macro mdEsc(text) -%}
+    {{- text | replace({'|':'\\|'}) | raw -}}
+{%- endmacro %}

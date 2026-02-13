@@ -1,0 +1,57 @@
+{% import 'include/macros.twig' as macros %}
+{% autoescape false %}
+{% block content %}
+## Table of contents
+
+{% for namespace in project.indexes.namespaces | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+    {%~ for class in namespace.classes %}
+        {%- set link = '- [' ~ class ~ '](#class-' ~ macros.anchorId(class) ~ ')' -%}
+        {{~ link ~}}
+    {%~ endfor ~%}
+{%- endfor %}
+
+
+
+{% for namespace in project.indexes.namespaces | sort((a,b) => a.FullyQualifiedStructuralElementName <=> b.FullyQualifiedStructuralElementName) %}
+    {%~ for class in namespace.classes %}
+
+        {{~ '<hr /><a id="class-' ~ macros.anchorId(class) ~ '"></a>' }}
+        {{~ '### Class: ' ~ class ~}}
+
+        {{~ '> Class ' ~ class.name }}
+
+        {% set allMethods = class.methods %}
+        {%~ for trait in class.usedTraits -%}
+            {% if trait.methods.count > 0 %}
+            {% set allMethods = allMethods.merge(trait.methods) %}
+            {% endif %}
+        {% endfor %}
+
+        {{~ "| Visibility | Function |" }}
+        {{~ "|:-----------|:---------|" }}
+        {%~ for method in allMethods | sort((a,b) => a.name <=> b.name) -%}
+            {% if loop.index0 > 0 %}{{ '\n' }}{% endif %}{% include 'method.md.twig' %}
+        {% endfor %}
+
+        {% set parent = class.parent %}
+        {% if parent is not null %}
+            {% set link = '[' ~ parent ~ '](#class-' ~ macros.anchorId(parent) ~ ')' %}
+
+            {{~ '<em>This class extends ' ~ link  ~ '</em>' }}
+        {% endif %}
+
+        {% set interfaces = class.getInterfaces() %}
+        {%~ if interfaces.count > 0 ~%}
+            {{~ '<em>This class implements: ' -}}
+            {%- for interface in interfaces -%}
+                {%- if loop.index0 > 0 %}{{- ', ' -}}{%- endif -%}
+                {{- interface -}}
+            {%~ endfor ~%}
+            {{- '</em>' }}
+        {%~ endif ~%}
+
+    {% endfor %}
+{%- endfor %}
+
+{% endblock %}
+{% endautoescape %}

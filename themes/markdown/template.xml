@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>markdown</name>
+    <author>Sakri Koskimies</author>
+    <email>sakri.koskimies@hotmail.com</email>
+    <version>1.0.0</version>
+    <transformations>
+        <transformation writer="twig" source="index.md.twig" artifact="default.md"/>
+    </transformations>
+</template>
