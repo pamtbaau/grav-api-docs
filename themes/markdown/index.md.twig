@@ -19,6 +19,12 @@
         {{~ '### Class: ' ~ class ~}}
 
         {{~ '> Class ' ~ class.name }}
+        {%~ if class.summary is not empty and class.summary != ('Class ' ~ class.name) -%}
+            <br/> {{ macros.mdEsc(class.summary) | replace({'\n': ' '}) | raw -}}
+        {% endif ~%}
+        {%~ if class.description is not empty -%}
+            <br/> {{ macros.mdEsc(class.description) | replace({'\n': ' '}) | raw -}}
+        {% endif %}
 
         {% set allMethods = class.methods %}
         {%~ for trait in class.usedTraits -%}
@@ -40,7 +46,7 @@
             {{~ '<em>This class extends ' ~ link  ~ '</em>' }}
         {% endif %}
 
-        {% set interfaces = class.getInterfaces() %}
+        {% set interfaces = class.getInterfacesIncludingInherited() %}
         {%~ if interfaces.count > 0 ~%}
             {{~ '<em>This class implements: ' -}}
             {%- for interface in interfaces -%}
