@@ -1,4 +1,13 @@
 {% import 'include/macros.twig' as macros %}
 {% autoescape false %}
-| {{ macros.visibility(method) }} | <strong>{{ method.name }}</strong>({{ macros.arguments(method) }}){{- macros.returnValue(method) -}}<br/><em>{{ macros.summary(method) }}</em> |
+| {{ macros.visibility(method) }} | {{ method.isDeprecated ? '<strike>' : '' }}<strong>{{ method.name }}</strong>({{ macros.arguments(method) }}){{- macros.returnValue(method) -}}{{ method.isDeprecated ? '</strike>' : '' }}<br/><em>
+{%- if method.isDeprecated() -%}
+    {% for deprecation in method.getDeprecations() -%}
+        DEPRECATED - {{ deprecation.description -}}
+        {%- if not loop.last %}<br/>{% endif %}
+    {%- endfor -%}
+{%- else -%}
+    {{- macros.summary(method) -}}
+{%- endif -%}
+</em> |
 {%- endautoescape %}
