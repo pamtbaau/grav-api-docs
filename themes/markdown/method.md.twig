@@ -1,11 +1,4 @@
 {% import 'include/macros.twig' as macros %}
 {% autoescape false %}
-| {{ method.visibility }}{{ method.isStatic ? ' static' : ''}} | <strong>{{ method.name }}</strong>({% for argument in method.arguments %}
-{{- '<em>' ~ (argument.type | replace({'|': '</em> &#124; <em>'})) ~ '</em>' }}
-{{- argument.byReference ? '&' }} $
-{{- '<strong>' ~ argument.name ~ '</strong>' }}{{ argument.default ? ' = ' ~ argument.default | raw }}
-{%- if not loop.last %}, {% endif %}
-{%- endfor %})
-{{- method.response.type ? (': <em>' ~ (method.response.type | replace({'|': '</em> &#124;'}))) ~ (method.response.description ? ' ' ~ method.response.description : '') ~ '</em><br/>' : '</em><br/>' }}
-{{- '<em>' ~ (macros.mdEsc(method.summary) | replace({'\n': ' '}) | raw)  ~ '</em>|' -}}
-{% endautoescape %}
+| {{ macros.visibility(method) }} | <strong>{{ method.name }}</strong>({{ macros.arguments(method) }}){{- macros.returnValue(method) -}}<br/><em>{{ macros.summary(method) }}</em> |
+{%- endautoescape %}

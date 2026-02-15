@@ -6,9 +6,50 @@
 {%- endmacro %}
 
 {#
+ # Write visibility column
+ #}
+{% macro visibility(method) -%}
+    {{ method.visibility }}{{ method.isStatic ? ' static' : '' }}
+{%- endmacro %}
+
+{#
+ # Write arguments of method
+ #}
+{% macro arguments(method) -%}
+{% autoescape false %}
+    {%~ for argument in method.arguments %}
+    {{- '<em>' ~ (argument.type | replace({'|': '</em> &#124; <em>'})) ~ '</em>' }}
+    {{- argument.byReference ? '&' }} $
+    {{- '<strong>' ~ argument.name ~ '</strong>' }}{{ argument.default ? ' = ' ~ argument.default | raw }}
+    {%- if not loop.last %}, {% endif %}
+    {%- endfor %}
+{% endautoescape %}
+{%- endmacro %}
+
+{#
+ # Write returnValue of method
+ #}
+{% macro returnValue(method) -%}
+    {%~ if method.response.type is not empty -%}
+        : <em>{{ method.response.type | replace({'|': '</em> &#124;'}) | raw }}</em>
+        {%- if method.response.description is not empty -%}
+            <em>{{ method.response.description | raw }}</em>
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro %}
+
+{#
+ # Write summary of method
+ #}
+{% macro summary(method) -%}
+    {{~ _self.mdEsc(method.summary) | replace({'\n': ' '}) | raw }}
+{%- endmacro %}
+
+{#
  # Escape markdown special charactersc
  # @param $text string The text to escape
  #}
 {% macro mdEsc(text) -%}
     {{- text | replace({'|':'\\|'}) | raw -}}
 {%- endmacro %}
+
