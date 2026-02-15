@@ -33,7 +33,7 @@
     {%~ if method.response.type is not empty -%}
         : <em>{{ method.response.type | replace({'|': '</em> &#124;'}) | raw }}</em>
         {%- if method.response.description is not empty -%}
-            <em>{{ method.response.description | raw }}</em>
+            <em> {{ method.response.description | raw }}</em>
         {%- endif -%}
     {%- endif -%}
 {%- endmacro %}
