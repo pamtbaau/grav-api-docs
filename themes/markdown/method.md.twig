@@ -8,6 +8,9 @@
     {%- endfor -%}
 {%- else -%}
     {{- macros.summary(method) -}}
+    {% if method.description is not empty  %}
+        {{- ' ' ~ macros.description(method) -}}
+    {% endif %}
 {%- endif -%}
 </em> |
 {%- endautoescape %}

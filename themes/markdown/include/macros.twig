@@ -46,6 +46,13 @@
 {%- endmacro %}
 
 {#
+ # Write description of method
+ #}
+{% macro description(method) -%}
+    {{~ _self.mdEsc(method.description) | replace({'\n': ' '}) | raw }}
+{%- endmacro %}
+
+{#
  # Escape markdown special charactersc
  # @param $text string The text to escape
  #}
